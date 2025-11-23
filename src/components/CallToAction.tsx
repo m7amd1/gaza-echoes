@@ -13,8 +13,8 @@ export const CallToAction = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 70%',
-          toggleActions: 'play none none reverse',
+          start: 'top 80%',
+          toggleActions: 'play none none none',
         },
       });
 
@@ -48,7 +48,7 @@ export const CallToAction = () => {
       // Magnetic button effect
       const buttons = document.querySelectorAll('.cta-button');
       buttons.forEach((button) => {
-        button.addEventListener('mouseenter', (e) => {
+        button.addEventListener('mouseenter', () => {
           gsap.to(button, {
             scale: 1.05,
             duration: 0.4,

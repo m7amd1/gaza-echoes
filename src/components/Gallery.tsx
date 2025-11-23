@@ -15,7 +15,8 @@ export const Gallery = () => {
       gsap.from(imageRef.current, {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top center',
+          start: 'top 80%',
+          toggleActions: 'play none none none',
         },
         opacity: 0,
         scale: 0.8,
@@ -26,7 +27,8 @@ export const Gallery = () => {
       gsap.from(textRef.current, {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top center',
+          start: 'top 80%',
+          toggleActions: 'play none none none',
         },
         opacity: 0,
         y: 50,

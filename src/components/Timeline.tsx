@@ -67,13 +67,13 @@ export const Timeline = () => {
         transformOrigin: 'top',
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top center',
+          start: 'top 80%',
           end: 'bottom center',
           scrub: 1.5,
         },
       });
 
-      // Enhanced event animations with 3D perspective
+      // Enhanced event animations
       gsap.utils.toArray('.timeline-event').forEach((event: any, index) => {
         const isEven = index % 2 === 0;
         
@@ -84,8 +84,8 @@ export const Timeline = () => {
           scale: 0.8,
           scrollTrigger: {
             trigger: event,
-            start: 'top 85%',
-            end: 'top 40%',
+            start: 'top 90%',
+            end: 'top 50%',
             scrub: 1.5,
             toggleActions: 'play none none reverse',
           },
@@ -96,7 +96,7 @@ export const Timeline = () => {
         if (dot) {
           ScrollTrigger.create({
             trigger: event,
-            start: 'top 70%',
+            start: 'top 80%',
             onEnter: () => {
               gsap.to(dot, {
                 scale: 1.5,
