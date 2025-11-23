@@ -40,8 +40,8 @@ export const Testimonials = () => {
       gsap.from('.testimonial-card', {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none reverse',
+          start: 'top 80%',
+          toggleActions: 'play none none none',
         },
         opacity: 0,
         y: 80,
