@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -19,7 +19,7 @@ const stats: Stat[] = [
 
 export const Statistics = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [animatedStats, setAnimatedStats] = useState(stats.map(() => 0));
+  const statRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -31,20 +31,23 @@ export const Statistics = () => {
         onEnter: () => {
           if (!hasAnimated) {
             hasAnimated = true;
+            
+            // Animate each stat number
             stats.forEach((stat, index) => {
-              const obj = { value: 0 };
-              gsap.to(obj, {
-                value: stat.value,
-                duration: 2.5,
-                ease: 'power2.out',
-                onUpdate: function() {
-                  setAnimatedStats(prev => {
-                    const newStats = [...prev];
-                    newStats[index] = Math.floor(obj.value);
-                    return newStats;
-                  });
-                },
-              });
+              const element = statRefs.current[index];
+              if (element) {
+                const obj = { value: 0 };
+                gsap.to(obj, {
+                  value: stat.value,
+                  duration: 2.5,
+                  ease: 'power2.out',
+                  onUpdate: function() {
+                    const currentValue = Math.floor(obj.value);
+                    const formatted = formatNumber(currentValue);
+                    element.textContent = formatted + (stat.suffix || '');
+                  },
+                });
+              }
             });
           }
         },
@@ -89,9 +92,11 @@ export const Statistics = () => {
               key={index}
               className="stat-card bg-card border border-border rounded-lg p-8 text-center hover:border-primary/50 transition-all duration-500"
             >
-              <div className="text-5xl md:text-6xl font-bold text-primary mb-4">
-                {formatNumber(animatedStats[index])}
-                {stat.suffix}
+              <div 
+                ref={el => statRefs.current[index] = el}
+                className="text-5xl md:text-6xl font-bold text-primary mb-4"
+              >
+                0{stat.suffix}
               </div>
               <div className="text-lg text-muted-foreground font-medium">
                 {stat.label}

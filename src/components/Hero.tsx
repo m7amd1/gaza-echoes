@@ -40,19 +40,6 @@ export const Hero = () => {
           scrub: 1.5,
         },
       });
-
-      // Subtle opacity reduction for text (not complete fade)
-      gsap.to([titleRef.current, subtitleRef.current], {
-        opacity: 0.3,
-        y: -50,
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: 'top top',
-          end: '40% top',
-          scrub: 2,
-        },
-      });
     }, heroRef);
 
     return () => ctx.revert();
