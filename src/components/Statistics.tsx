@@ -30,7 +30,7 @@ export const Statistics = () => {
           start: 'top 80%',
           toggleActions: 'play none none none',
         },
-        opacity: 0,
+        opacity: 1,
         y: 60,
         scale: 0.9,
         stagger: 0.15,
