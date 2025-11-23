@@ -13,41 +13,44 @@ export const Hero = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Initial fade in
-      gsap.from(titleRef.current, {
+      // Smooth staggered reveal with elastic ease
+      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+      
+      tl.from(titleRef.current, {
+        opacity: 0,
+        y: 100,
+        scale: 0.9,
+        duration: 1.5,
+        ease: 'elastic.out(1, 0.5)',
+      })
+      .from(subtitleRef.current, {
         opacity: 0,
         y: 50,
         duration: 1.2,
-        ease: 'power3.out',
-      });
+      }, '-=0.8');
 
-      gsap.from(subtitleRef.current, {
-        opacity: 0,
-        y: 30,
-        duration: 1.2,
-        delay: 0.3,
-        ease: 'power3.out',
-      });
-
-      // Parallax effect on scroll
+      // Enhanced parallax with scale
       gsap.to(imageRef.current, {
-        y: 200,
+        y: 250,
+        scale: 1.1,
         scrollTrigger: {
           trigger: heroRef.current,
           start: 'top top',
           end: 'bottom top',
-          scrub: 1,
+          scrub: 1.5,
         },
       });
 
-      gsap.to(titleRef.current, {
+      // Smooth fade out text
+      gsap.to([titleRef.current, subtitleRef.current], {
         opacity: 0,
-        y: -100,
+        y: -150,
+        stagger: 0.1,
         scrollTrigger: {
           trigger: heroRef.current,
           start: 'top top',
-          end: 'bottom top',
-          scrub: 1,
+          end: 'center top',
+          scrub: 2,
         },
       });
     }, heroRef);

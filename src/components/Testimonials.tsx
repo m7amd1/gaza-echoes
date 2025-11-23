@@ -7,19 +7,28 @@ gsap.registerPlugin(ScrollTrigger);
 
 const testimonials = [
   {
-    quote: "We are not numbers. We are people with dreams, families, and futures that have been stolen from us.",
+    quote: "I have operated on children without anesthesia. I have held the hands of mothers who have lost everything. We are not statistics—we are human beings fighting to survive in conditions no one should endure.",
     author: "Dr. Mahmoud Al-Haddad",
-    role: "Physician, Gaza City",
+    role: "Emergency Surgeon, Al-Shifa Hospital",
+    detail: "Working 48-hour shifts with dwindling medical supplies"
   },
   {
-    quote: "My children ask me when we can go home. How do I tell them there is no home to return to?",
+    quote: "My daughter draws pictures of our home—the one that was bombed. She's six years old and has already witnessed more death than anyone should in a lifetime. When will her childhood begin?",
     author: "Fatima Hassan",
-    role: "Mother of Four, Rafah",
+    role: "Mother of Four, Rafah Displacement Camp",
+    detail: "Living in a tent with three generations of family"
   },
   {
-    quote: "Every day I witness miracles of resilience. But resilience should not be a requirement for survival.",
+    quote: "Every day I witness miracles of human spirit—neighbors sharing their last piece of bread, strangers becoming family. But resilience should never be a prerequisite for the right to live with dignity.",
     author: "Ahmed Suleiman",
-    role: "Aid Worker",
+    role: "Humanitarian Aid Coordinator",
+    detail: "Coordinating relief efforts across Gaza since 2023"
+  },
+  {
+    quote: "I was a teacher. Now I teach children under tarps and open skies. They deserve classrooms, they deserve futures. Instead, they're learning to survive war.",
+    author: "Layla Mansour",
+    role: "Elementary School Teacher, Khan Younis",
+    detail: "Educating 50+ displaced children daily"
   },
 ];
 
@@ -31,13 +40,39 @@ export const Testimonials = () => {
       gsap.from('.testimonial-card', {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 70%',
+          start: 'top 75%',
+          toggleActions: 'play none none reverse',
         },
         opacity: 0,
-        y: 60,
-        stagger: 0.3,
-        duration: 1.2,
-        ease: 'power3.out',
+        y: 80,
+        rotationX: -15,
+        stagger: {
+          amount: 0.6,
+          from: 'start',
+        },
+        duration: 1.4,
+        ease: 'power4.out',
+      });
+
+      // Hover animation for cards
+      const cards = document.querySelectorAll('.testimonial-card');
+      cards.forEach((card) => {
+        card.addEventListener('mouseenter', () => {
+          gsap.to(card, {
+            scale: 1.02,
+            y: -5,
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+        });
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, {
+            scale: 1,
+            y: 0,
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+        });
       });
     }, sectionRef);
 
@@ -63,19 +98,20 @@ export const Testimonials = () => {
           Real stories from those who live through this reality every day
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="testimonial-card bg-card/80 backdrop-blur-sm border-l-4 border-primary p-8 rounded-lg"
+              className="testimonial-card bg-card/90 backdrop-blur-sm border-l-4 border-primary p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 cursor-pointer"
             >
-              <div className="text-primary text-5xl mb-4 font-serif">"</div>
-              <p className="text-foreground text-lg mb-6 leading-relaxed italic">
+              <div className="text-primary text-6xl mb-3 font-serif leading-none">"</div>
+              <p className="text-foreground text-base mb-6 leading-relaxed italic min-h-[140px]">
                 {testimonial.quote}
               </p>
-              <div className="border-t border-border pt-4">
-                <div className="font-semibold text-foreground">{testimonial.author}</div>
-                <div className="text-muted-foreground text-sm">{testimonial.role}</div>
+              <div className="border-t border-border pt-4 space-y-1">
+                <div className="font-bold text-foreground text-lg">{testimonial.author}</div>
+                <div className="text-primary text-sm font-medium">{testimonial.role}</div>
+                <div className="text-muted-foreground text-xs pt-2 italic">{testimonial.detail}</div>
               </div>
             </div>
           ))}
