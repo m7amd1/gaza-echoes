@@ -8,32 +8,50 @@ const timelineEvents = [
   {
     date: 'October 7, 2023',
     title: 'The Breaking Point',
-    description: 'Escalation begins, marking the start of an unprecedented humanitarian crisis.',
+    description: 'Armed conflict erupts, triggering an unprecedented military response. Within hours, airstrikes begin targeting residential areas in Gaza, marking the onset of what would become one of the deadliest escalations in decades.',
+    casualties: '250+ lives lost in first 24 hours',
   },
   {
-    date: 'October 2023',
-    title: 'Siege Tightens',
-    description: 'Complete blockade imposed. Water, electricity, and medical supplies cut off.',
+    date: 'October 9-13, 2023',
+    title: 'Total Siege Declared',
+    description: 'Israel announces complete blockade of Gaza. All electricity, water, fuel, and food supplies are cut off. The 2.3 million residents are trapped with rapidly depleting resources.',
+    casualties: 'Essential services cut to 2.3M people',
+  },
+  {
+    date: 'October 17-31, 2023',
+    title: 'Healthcare System Collapses',
+    description: 'Hospitals come under repeated bombardment. Al-Shifa Hospital, Gaza\'s largest medical facility, loses power. Premature babies die in non-functioning incubators. Surgeons operate by flashlight.',
+    casualties: '30+ hospitals damaged or destroyed',
   },
   {
     date: 'November 2023',
-    title: 'Hospitals Under Attack',
-    description: 'Medical facilities targeted. Healthcare system collapses under relentless assault.',
+    title: 'Mass Forced Displacement',
+    description: 'Evacuation orders force over 1.9 million Palestinians to flee their homes. Families pack into overcrowded shelters, schools, and UN facilities. Many find no shelter at all.',
+    casualties: '1.9M people displaced (85% of population)',
   },
   {
     date: 'December 2023',
-    title: 'Mass Displacement',
-    description: 'Over 1.9 million people forced from their homes, seeking safety that doesn\'t exist.',
+    title: 'Southern Gaza Offensive',
+    description: 'Despite assurances of safety, southern Gaza comes under heavy bombardment. Rafah, where displaced families sought refuge, becomes a new frontline. Nowhere in Gaza remains safe.',
+    casualties: '20,000+ total casualties reported',
   },
   {
     date: 'January 2024',
-    title: 'Famine Warnings',
-    description: 'UN warns of imminent famine. Children dying of malnutrition and preventable diseases.',
+    title: 'Famine and Disease',
+    description: 'UN agencies warn of imminent famine affecting entire population. Children are dying of starvation and dehydration. Diseases spread rapidly in overcrowded, unsanitary conditions.',
+    casualties: 'Acute malnutrition affects 90% of children',
   },
   {
-    date: 'Present Day',
-    title: 'Ongoing Catastrophe',
-    description: 'The world watches as the humanitarian crisis deepens. The call for justice grows louder.',
+    date: 'February-May 2024',
+    title: 'ICJ Rulings and Continued Assault',
+    description: 'International Court of Justice orders measures to prevent genocide. Despite global outcry and international law, bombardment continues. Infrastructure lies in ruins.',
+    casualties: '35,000+ lives lost, 70% civilian infrastructure destroyed',
+  },
+  {
+    date: 'Present Day - 2025',
+    title: 'Ongoing Humanitarian Catastrophe',
+    description: 'Over 50,000 lives lost, majority women and children. Entire neighborhoods erased. Generations of families wiped out. Yet Palestinians endure, their spirit unbroken.',
+    casualties: '50,000+ killed, countless wounded, futures destroyed',
   },
 ];
 
@@ -43,7 +61,7 @@ export const Timeline = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animate timeline line growth
+      // Animate timeline line growth with glow effect
       gsap.from(lineRef.current, {
         scaleY: 0,
         transformOrigin: 'top',
@@ -51,22 +69,46 @@ export const Timeline = () => {
           trigger: sectionRef.current,
           start: 'top center',
           end: 'bottom center',
-          scrub: 1,
+          scrub: 1.5,
         },
       });
 
-      // Animate each event
+      // Enhanced event animations with 3D perspective
       gsap.utils.toArray('.timeline-event').forEach((event: any, index) => {
+        const isEven = index % 2 === 0;
+        
         gsap.from(event, {
           opacity: 0,
-          x: index % 2 === 0 ? -100 : 100,
+          x: isEven ? -150 : 150,
+          rotationY: isEven ? -20 : 20,
+          scale: 0.8,
           scrollTrigger: {
             trigger: event,
-            start: 'top 80%',
-            end: 'top 50%',
-            scrub: 1,
+            start: 'top 85%',
+            end: 'top 40%',
+            scrub: 1.5,
+            toggleActions: 'play none none reverse',
           },
         });
+
+        // Pulse dot animation when in view
+        const dot = event.querySelector('.timeline-dot');
+        if (dot) {
+          ScrollTrigger.create({
+            trigger: event,
+            start: 'top 70%',
+            onEnter: () => {
+              gsap.to(dot, {
+                scale: 1.5,
+                opacity: 0.5,
+                duration: 0.6,
+                ease: 'power2.inOut',
+                yoyo: true,
+                repeat: 3,
+              });
+            },
+          });
+        }
       });
     }, sectionRef);
 
@@ -81,10 +123,10 @@ export const Timeline = () => {
         </h2>
 
         <div className="relative">
-          {/* Center line */}
+          {/* Center line with glow */}
           <div
             ref={lineRef}
-            className="absolute left-1/2 top-0 bottom-0 w-1 bg-primary/30 -translate-x-1/2 hidden md:block"
+            className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-primary/20 -translate-x-1/2 hidden md:block shadow-[0_0_10px_rgba(220,38,38,0.3)]"
           />
 
           {/* Events */}
@@ -96,17 +138,20 @@ export const Timeline = () => {
                   index % 2 === 0 ? 'md:pr-12 md:ml-0' : 'md:pl-12 md:ml-auto'
                 }`}
               >
-                {/* Dot on timeline */}
+                {/* Dot on timeline with glow */}
                 <div
-                  className={`hidden md:block absolute top-0 w-4 h-4 bg-primary rounded-full ${
+                  className={`timeline-dot hidden md:block absolute top-2 w-5 h-5 bg-primary rounded-full shadow-[0_0_15px_rgba(220,38,38,0.6)] border-2 border-background ${
                     index % 2 === 0 ? 'right-0 translate-x-[50%]' : 'left-0 -translate-x-[50%]'
                   }`}
                 />
 
-                <div className="bg-card border border-border rounded-lg p-6 hover:border-primary/50 transition-all duration-500">
-                  <div className="text-primary font-semibold mb-2">{event.date}</div>
-                  <h3 className="text-2xl font-bold mb-3 text-foreground">{event.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{event.description}</p>
+                <div className="bg-card/95 backdrop-blur border border-border rounded-lg p-7 hover:border-primary/70 hover:shadow-xl transition-all duration-500 group">
+                  <div className="text-primary font-bold mb-2 text-sm uppercase tracking-wider">{event.date}</div>
+                  <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300">{event.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-4">{event.description}</p>
+                  <div className="pt-3 border-t border-border/50">
+                    <p className="text-primary/90 text-sm font-semibold">{event.casualties}</p>
+                  </div>
                 </div>
               </div>
             ))}
