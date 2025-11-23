@@ -23,36 +23,43 @@ export const Statistics = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      let hasAnimated = false;
+
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: 'top center',
+        start: 'top 70%',
         onEnter: () => {
-          stats.forEach((stat, index) => {
-            gsap.to({}, {
-              duration: 2.5,
-              ease: 'power2.out',
-              onUpdate: function() {
-                const progress = this.progress();
-                setAnimatedStats(prev => {
-                  const newStats = [...prev];
-                  newStats[index] = Math.floor(stat.value * progress);
-                  return newStats;
-                });
-              },
+          if (!hasAnimated) {
+            hasAnimated = true;
+            stats.forEach((stat, index) => {
+              const obj = { value: 0 };
+              gsap.to(obj, {
+                value: stat.value,
+                duration: 2.5,
+                ease: 'power2.out',
+                onUpdate: function() {
+                  setAnimatedStats(prev => {
+                    const newStats = [...prev];
+                    newStats[index] = Math.floor(obj.value);
+                    return newStats;
+                  });
+                },
+              });
             });
-          });
+          }
         },
       });
 
       gsap.from('.stat-card', {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top center',
+          start: 'top 70%',
         },
         opacity: 0,
-        y: 50,
-        stagger: 0.2,
-        duration: 1,
+        y: 60,
+        scale: 0.9,
+        stagger: 0.15,
+        duration: 1.2,
         ease: 'power3.out',
       });
     }, sectionRef);
