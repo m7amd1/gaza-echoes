@@ -116,9 +116,9 @@ export const Timeline = () => {
   }, []);
 
   return (
-    <div ref={sectionRef} className="py-32 px-6 bg-background relative">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl md:text-6xl font-bold text-center mb-20 text-foreground">
+    <div ref={sectionRef} className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-background relative w-full overflow-hidden">
+      <div className="max-w-4xl mx-auto w-full">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-12 sm:mb-16 md:mb-20 text-foreground px-2">
           Timeline of Tragedy
         </h2>
 
@@ -130,25 +130,25 @@ export const Timeline = () => {
           />
 
           {/* Events */}
-          <div className="space-y-12">
+          <div className="space-y-8 sm:space-y-12">
             {timelineEvents.map((event, index) => (
               <div
                 key={index}
                 className={`timeline-event relative md:w-1/2 ${
-                  index % 2 === 0 ? 'md:pr-12 md:ml-0' : 'md:pl-12 md:ml-auto'
+                  index % 2 === 0 ? 'md:pr-8 lg:pr-12 md:ml-0' : 'md:pl-8 lg:pl-12 md:ml-auto'
                 }`}
               >
                 {/* Dot on timeline with glow */}
                 <div
-                  className={`timeline-dot hidden md:block absolute top-2 w-5 h-5 bg-primary rounded-full shadow-[0_0_15px_rgba(220,38,38,0.6)] border-2 border-background ${
+                  className={`timeline-dot hidden md:block absolute top-2 w-4 h-4 sm:w-5 sm:h-5 bg-primary rounded-full shadow-[0_0_15px_rgba(220,38,38,0.6)] border-2 border-background ${
                     index % 2 === 0 ? 'right-0 translate-x-[50%]' : 'left-0 -translate-x-[50%]'
                   }`}
                 />
 
-                <div className="bg-card/95 backdrop-blur border border-border rounded-lg p-7 hover:border-primary/70 hover:shadow-xl transition-all duration-500 group">
-                  <div className="text-primary font-bold mb-2 text-sm uppercase tracking-wider">{event.date}</div>
-                  <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300">{event.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-4">{event.description}</p>
+                <div className="bg-card/95 backdrop-blur border border-border rounded-lg p-5 sm:p-6 md:p-7 hover:border-primary/70 hover:shadow-xl transition-all duration-500 group">
+                  <div className="text-primary font-bold mb-2 text-xs sm:text-sm uppercase tracking-wider">{event.date}</div>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-foreground group-hover:text-primary transition-colors duration-300">{event.title}</h3>
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-3 sm:mb-4">{event.description}</p>
                   <div className="pt-3 border-t border-border/50">
                     <p className="text-primary/90 text-sm font-semibold">{event.casualties}</p>
                   </div>

@@ -83,24 +83,24 @@ export const Statistics = () => {
   };
 
   return (
-    <div ref={sectionRef} className="py-32 px-6 bg-secondary/50">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl md:text-6xl font-bold text-center mb-20 text-foreground">
+    <div ref={sectionRef} className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-secondary/50 w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto w-full">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-12 sm:mb-16 md:mb-20 text-foreground px-2">
           The Human Cost
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="stat-card bg-card border border-border rounded-lg p-8 text-center hover:border-primary/50 transition-all duration-500"
+              className="stat-card bg-card border border-border rounded-lg p-6 sm:p-8 text-center hover:border-primary/50 transition-all duration-500"
             >
               <div 
                 ref={el => statRefs.current[index] = el}
-                className="text-5xl md:text-6xl font-bold text-primary mb-4"
+                className="text-4xl sm:text-5xl md:text-6xl font-bold text-primary mb-3 sm:mb-4"
               >
                 0{stat.suffix}
               </div>
-              <div className="text-lg text-muted-foreground font-medium">
+              <div className="text-base sm:text-lg text-muted-foreground font-medium">
                 {stat.label}
               </div>
             </div>
