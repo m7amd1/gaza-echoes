@@ -80,7 +80,7 @@ export const Testimonials = () => {
   }, []);
 
   return (
-    <div ref={sectionRef} className="py-32 px-6 bg-secondary/30 relative overflow-hidden">
+    <div ref={sectionRef} className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-secondary/30 relative overflow-hidden w-full">
       <div
         className="absolute inset-0 opacity-5"
         style={{
@@ -90,27 +90,27 @@ export const Testimonials = () => {
         }}
       />
       
-      <div className="max-w-6xl mx-auto relative z-10">
-        <h2 className="text-4xl md:text-6xl font-bold text-center mb-4 text-foreground">
+      <div className="max-w-6xl mx-auto relative z-10 w-full">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-3 sm:mb-4 text-foreground px-2">
           Voices From Gaza
         </h2>
-        <p className="text-center text-muted-foreground text-lg mb-20 max-w-2xl mx-auto">
+        <p className="text-center text-muted-foreground text-base sm:text-lg mb-12 sm:mb-16 md:mb-20 max-w-2xl mx-auto px-2">
           Real stories from those who live through this reality every day
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="testimonial-card bg-card/90 backdrop-blur-sm border-l-4 border-primary p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 cursor-pointer"
+              className="testimonial-card bg-card/90 backdrop-blur-sm border-l-4 border-primary p-6 sm:p-7 md:p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 cursor-pointer"
             >
-              <div className="text-primary text-6xl mb-3 font-serif leading-none">"</div>
-              <p className="text-foreground text-base mb-6 leading-relaxed italic min-h-[140px]">
+              <div className="text-primary text-5xl sm:text-6xl mb-2 sm:mb-3 font-serif leading-none">"</div>
+              <p className="text-foreground text-sm sm:text-base mb-5 sm:mb-6 leading-relaxed italic min-h-[120px] sm:min-h-[140px]">
                 {testimonial.quote}
               </p>
-              <div className="border-t border-border pt-4 space-y-1">
-                <div className="font-bold text-foreground text-lg">{testimonial.author}</div>
-                <div className="text-primary text-sm font-medium">{testimonial.role}</div>
+              <div className="border-t border-border pt-3 sm:pt-4 space-y-1">
+                <div className="font-bold text-foreground text-base sm:text-lg">{testimonial.author}</div>
+                <div className="text-primary text-xs sm:text-sm font-medium">{testimonial.role}</div>
                 <div className="text-muted-foreground text-xs pt-2 italic">{testimonial.detail}</div>
               </div>
             </div>

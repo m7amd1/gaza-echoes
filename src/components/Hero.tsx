@@ -46,7 +46,7 @@ export const Hero = () => {
   }, []);
 
   return (
-    <div ref={heroRef} className="relative h-screen overflow-hidden">
+    <div ref={heroRef} className="relative h-screen overflow-hidden w-full">
       <div
         ref={imageRef}
         className="absolute inset-0 w-full h-[120vh]"
@@ -59,17 +59,17 @@ export const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background" />
       </div>
 
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center">
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 sm:px-6 text-center w-full">
         <h1
           ref={titleRef}
-          className="text-6xl md:text-8xl font-bold mb-6 text-foreground max-w-5xl"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold mb-6 text-foreground max-w-5xl px-2"
         >
           Gaza: Voices of{' '}
           <span className="text-primary">Resilience</span>
         </h1>
         <p
           ref={subtitleRef}
-          className="text-xl md:text-2xl text-muted-foreground max-w-3xl text-balance"
+          className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-3xl text-balance px-2"
         >
           An interactive documentary chronicling the ongoing humanitarian catastrophe
         </p>
